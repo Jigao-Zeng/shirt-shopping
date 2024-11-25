@@ -1,42 +1,57 @@
-import React from 'react';
-import { clothInfo } from './data.tsx';
+import React, { useEffect, useState } from 'react';
+import './styles.css';
+import { fetchClothInfo } from './data.ts';
+import { Cloth } from "./types.ts";
 
 const ClothPage = () => {
-  const { name, price, description, sizeOptions } = clothInfo;
+  const [cloth, setCloth] = useState<Cloth | null>(null);
+
+
+  useEffect(() => {
+    const getClothInfo = async () => {
+      try {
+        const clothInfo = await fetchClothInfo();
+        console.log({clothInfo})
+        setCloth(clothInfo); // Set the fetched product data
+      } catch (err) {
+        
+        console.error(err);
+      }
+    };
+
+    getClothInfo();
+  },[]);
+  
+
+
+  if (!cloth) {
+    return <div>Loading...</div>;
+  }
+
+  const {title, description, imageURL, price, sizeOptions} = cloth;
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-      <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full">
-   
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">{name}</h2>
+    <div className="container">
+      
+      {/* Image Section */}
+      <div className="image-section">
+        <img src={imageURL} alt="T-Shirt" />
+      </div>
 
-  
-        <div className="text-xl text-gray-700 font-semibold mb-6">
-          ${price.amount} {price.unit}
+      {/* Details Section */}
+      <div className="details-section">
+        <h1>{title}</h1>
+        <p className="price">${price}</p>
+        <p>{description}</p>
+        
+        <p>Size: </p>
+        <div className="size-options">
+          {sizeOptions.map((size) => (
+            <button key={size.id}>{size.label}</button>
+          ))}
         </div>
-
-     
-        <p className="text-gray-600 text-sm leading-relaxed mb-6">{description}</p>
-
-     
-        <div className="mb-6">
-          <span className="text-gray-800 font-medium">Size: </span>
-          <div className="flex space-x-2 mt-2">
-            {sizeOptions.map((size, index) => (
-              <button
-                key={index}
-                className="px-4 py-2 border rounded-lg text-gray-600 hover:bg-gray-100 active:bg-gray-200"
-              >
-                {size}
-              </button>
-            ))}
-          </div>
-        </div>
-
- 
-        <button className="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition">
-          ADD TO CART
-        </button>
+        
+        <button className="add-to-cart">ADD TO CART</button>
       </div>
     </div>
   );

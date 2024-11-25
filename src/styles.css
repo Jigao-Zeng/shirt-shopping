@@ -1,0 +1,105 @@
+/* Base styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* Default: Single column for smaller screens */
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Two-column layout for large screens */
+@media (min-width: 1024px) {
+    .container {
+        flex-direction: row; /* Change to two-column on large screens */
+    }
+}
+
+/* Image Section */
+.image-section {
+    flex: 1;
+    background: #f0f0f0;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-section img {
+    max-width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Details Section */
+.details-section {
+    flex: 1;
+    padding: 24px;
+}
+
+.details-section h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.details-section p {
+    margin-bottom: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.details-section .price {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.details-section .size-options button {
+    padding: 10px 16px;
+    margin-right: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.details-section .size-options button:hover {
+    background: #f0f0f0;
+    border-color: #888;
+}
+
+/* Updated "Add to Cart" Button */
+.details-section .add-to-cart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto; /* Adjust width to fit content */
+    min-width: 100px; /* Set minimum width for consistency */
+    padding: 10px 20px; /* Ensure enough space for text */
+    border: 2px solid black;
+    background: transparent;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    text-align: center;
+    white-space: nowrap; /* Ensure text stays on one line */
+    transition: background-color 0.2s, color 0.2s;
+    margin-top: 20px
+}
+
+.details-section .add-to-cart:hover {
+    background-color: black;
+    color: white;
+}
