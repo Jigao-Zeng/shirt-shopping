@@ -5,8 +5,8 @@ import { Cloth } from "./types.ts";
 
 const ClothPage = () => {
   const [cloth, setCloth] = useState<Cloth | null>(null);
-  const [cart, setCart] = useState<any[]>([]); // Cart state to hold added items
-  const [selectedSize, setSelectedSize] = useState<string | null>(null); // Track selected size
+  const [cart, setCart] = useState<any[]>([]);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [userError, setUserError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const ClothPage = () => {
       try {
         const clothInfo = await fetchClothInfo();
         console.log({ clothInfo });
-        setCloth(clothInfo); // Set the fetched product data
+        setCloth(clothInfo); 
       } catch (err) {
         console.error(err);
       }
@@ -31,15 +31,15 @@ const ClothPage = () => {
       );
   
       if (existingItemIndex !== -1) {
-        // If item exists, create a shallow copy of the cart and update the quantity
+      
         const updatedCart = [...prevCart];
         updatedCart[existingItemIndex] = {
-          ...updatedCart[existingItemIndex], // Copy the existing item
-          quantity: updatedCart[existingItemIndex].quantity + 1, // Increment quantity
+          ...updatedCart[existingItemIndex], 
+          quantity: updatedCart[existingItemIndex].quantity + 1, 
         };
         return updatedCart;
       } else {
-        // If item does not exist, add it with quantity 1
+       
         return [
           ...prevCart,
           {
@@ -56,7 +56,7 @@ const ClothPage = () => {
   
 
   const handleSizeSelect = (size: string) => {
-    setSelectedSize(size); // Update selected size state
+    setSelectedSize(size); 
   };
 
   if (!cloth) {
@@ -67,12 +67,11 @@ const ClothPage = () => {
 
   return (
     <div className="container">
-      {/* Image Section */}
+   
       <div className="image-section">
         <img src={imageURL} alt="T-Shirt" />
       </div>
 
-      {/* Details Section */}
       <div className="details-section">
         <h1>{title}</h1>
         <p className="price">${price}</p>
@@ -107,7 +106,6 @@ const ClothPage = () => {
         </button>
       </div>
 
-      {/* Cart Panel */}
       <div id="cart-panel" className="cart-panel">
         <h2>Cart</h2>
         {cart.length === 0 ? (
